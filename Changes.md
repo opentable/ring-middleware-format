@@ -1,5 +1,9 @@
 # Changes for ring-middleware-format
 
+## 0.3.3a (2014-03-24)
+### Features
+  - Switch to GSON for json parsing
+
 ## 0.3.2 (2013-10-29)
 ### Bugfixes
   - Removed deprecated usage of cheshire.custom (__Simon Belak__)
@@ -22,7 +26,7 @@
   - `wrap-format-response` encodes the body with the first format
   (`:json` by default) when unable to find an encoder matching the
   request instead of returning **306** HTTP error code
-  
+
 ### Features
   - Added custom error handling
   - Added a `ring.middleware.format` namespace for simplified usage
@@ -44,7 +48,7 @@
 ## 0.2.3
 ### Bugfixes
   - Fixed bug with long request bodies when guessing character encoding
-  
+
 ## 0.2.2
 ### Bugfixes
   - Fixed bug with character encoding guessing

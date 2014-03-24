@@ -1,5 +1,7 @@
 # ring-middleware-format #
 
+* Note: This is an OpenTable fork of the project.
+
 This is a set of middlewares that can be used to deserialize parameters sent in the :body of requests and serialize a Clojure data structure in the :body of a response to some string or binary representation. It natively handles JSON, YAML, and Clojure but it can easily be extended to other custom formats. It is intended for the creation of RESTful APIs that do the right thing by default but are flexible enough to handle most special cases.
 
 ## Installation
@@ -37,7 +39,7 @@ The available formats are:
   - `:json-kw` JSON with keywodized keys in `:params` and `:body-params`
   - `:yaml` YAML format
   - `:yaml-kw` YAML format with keywodized keys in `:params` and `:body-params`
-  - `:edn` edn (native Clojure format). It uses *clojure.tools.edn* and never evals code, but uses the custom tags from `*data-readers*` 
+  - `:edn` edn (native Clojure format). It uses *clojure.tools.edn* and never evals code, but uses the custom tags from `*data-readers*`
   - `:yaml-in-html` yaml in a html page (useful for browser debugging)
 
 Your routes should return raw clojure data structures where everything
@@ -110,7 +112,7 @@ For exemple, this will cause all json formatted responses to be encoded in *iso-
 
 ## Future Work ##
 
-+ Add [MessagePack](http://msgpack.org/) format and support binary payloads. 
++ Add [MessagePack](http://msgpack.org/) format and support binary payloads.
 
 ## See Also ##
 

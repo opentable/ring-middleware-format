@@ -1,7 +1,7 @@
-(defproject ring-middleware-format "0.3.3-SNAPSHOT"
+(defproject opentable/ring-middleware-format "0.3.3a"
   :description "Ring middleware for parsing parameters and emitting
   responses in various formats."
-  :url "https://github.com/ngrunwald/ring-middleware-format"
+  :url "https://github.com/opentable/ring-middleware-format"
   :license {:name "Eclipse Public License - v 1.0"
             :url "http://www.eclipse.org/legal/epl-v10.html"
             :distribution :repo
