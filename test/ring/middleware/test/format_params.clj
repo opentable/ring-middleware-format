@@ -27,7 +27,7 @@
              :body (stream "{\"foo\": \"bar\"}")
              :params {"id" 3}}
         resp (json-echo req)]
-    (is (= {:id 3, :foo "bar"} (:params resp)))
+    (is (= {"id" 3, :foo "bar"} (:params resp)))
     (is (= {:foo "bar"} (:body-params resp)))))
 
 (deftest augments-with-vnd-json-content-type
@@ -35,7 +35,7 @@
              :body (stream "{\"foo\": \"bar\"}")
              :params {"id" 3}}
         resp (json-echo req)]
-    (is (= {:id 3, :foo "bar"} (:params resp)))
+    (is (= {"id" 3, :foo "bar"} (:params resp)))
     (is (= {:foo "bar"} (:body-params resp)))))
 
 (def yaml-echo
