@@ -1,6 +1,6 @@
 (ns ring.middleware.format-response
-  (:require [cheshire.core :as json]
-            [ring.util.response :as res]
+  (:use [clj-gson.json :only (to-json from-json)])
+  (:require [ring.util.response :as res]
             [clojure.java.io :as io]
             [clj-yaml.core :as yaml]
             [clojure.string :as s])
@@ -134,8 +134,8 @@
               :or {predicate serializable?
                    pretty nil
                    encoder (if pretty
-                             (fn [s] (json/generate-string s {:pretty pretty}))
-                             json/generate-string)
+                             (fn [s] (to-json s))
+                             to-json)
                    type "application/json"
                    charset "utf-8"
                    handle-error default-handle-error}}]
@@ -216,8 +216,8 @@
                         :handle-error handle-error))
 
 (def format-encoders
-  {:json (make-encoder json/generate-string "application/json")
-   :json-kw (make-encoder json/generate-string "application/json")
+  {:json (make-encoder to-json "application/json")
+   :json-kw (make-encoder to-json "application/json")
    :edn (make-encoder generate-native-clojure "application/edn")
    :clojure (make-encoder generate-native-clojure "application/clojure")
    :yaml (make-encoder yaml/generate-string "application/x-yaml")

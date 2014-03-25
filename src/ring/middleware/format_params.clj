@@ -1,6 +1,6 @@
 (ns ring.middleware.format-params
-  (:require [cheshire.core :as json]
-            [clj-yaml.core :as yaml]
+  (:use [clj-gson.json :only (to-json from-json)])
+  (:require [clj-yaml.core :as yaml]
             [clojure.tools.reader.edn :as edn])
   (:import [com.ibm.icu.text CharsetDetector]
            [java.io ByteArrayInputStream InputStream ByteArrayOutputStream]
@@ -110,7 +110,7 @@
   "Handles body params in JSON format. See wrap-format-params for details."
   [handler & {:keys [predicate decoder charset handle-error]
               :or {predicate json-request?
-                   decoder json/parse-string
+                   decoder from-json
                    charset get-or-guess-charset
                    handle-error default-handle-error}}]
   (wrap-format-params handler
@@ -123,7 +123,7 @@
   "Handles body params in JSON format. See wrap-format-params for details."
   [handler & {:keys [predicate decoder charset handle-error]
               :or {predicate json-request?
-                   decoder json/parse-string
+                   decoder from-json
                    charset get-or-guess-charset
                    handle-error default-handle-error}}]
   (wrap-format-params handler

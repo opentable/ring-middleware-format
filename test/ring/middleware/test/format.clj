@@ -1,8 +1,8 @@
 (ns ring.middleware.test.format
   (:use [clojure.test]
-        [ring.middleware.format])
-  (:require [cheshire.core :as json]
-            [clj-yaml.core :as yaml])
+        [ring.middleware.format]
+        [clj-gson.json :only (to-json from-json)])
+  (:require [clj-yaml.core :as yaml])
   (:import [java.io ByteArrayInputStream]))
 
 (defn stream [s]
@@ -38,11 +38,11 @@
         msg {"test" "ok"}
         ok-req {:headers {"accept" ok-accept}
                 :content-type ok-accept
-                :body (stream (json/encode msg))}
+                :body (stream (to-json msg))}
         r-trip (restful-echo-json ok-req)]
     (is (= (get-in r-trip [:headers "Content-Type"])
            "application/json; charset=utf-8"))
-    (is (= (json/decode (slurp (:body r-trip))) (vals msg)))
+    (is (= (from-json (slurp (:body r-trip))) (vals msg)))
     (is (= (:params r-trip) {:test "ok"}))
     (is (.contains (get-in (restful-echo-json
                             {:headers {"accept" "application/edn"}

@@ -1,8 +1,8 @@
 (ns ring.middleware.test.format-params
   (:use [clojure.test]
-        [ring.middleware.format-params])
-  (:require [cheshire.core :as json]
-            [clj-yaml.core :as yaml])
+        [ring.middleware.format-params]
+        [clj-gson.json :only (to-json from-json)])
+  (:require [clj-yaml.core :as yaml])
   (:import [java.io ByteArrayInputStream]))
 
 (defn stream [s]
@@ -27,16 +27,16 @@
              :body (stream "{\"foo\": \"bar\"}")
              :params {"id" 3}}
         resp (json-echo req)]
-    (is (= {"id" 3 "foo" "bar"} (:params resp)))
-    (is (= {"foo" "bar"} (:body-params resp)))))
+    (is (= {:id 3, :foo "bar"} (:params resp)))
+    (is (= {:foo "bar"} (:body-params resp)))))
 
 (deftest augments-with-vnd-json-content-type
   (let [req {:content-type "application/vnd.foobar+json; charset=UTF-8"
              :body (stream "{\"foo\": \"bar\"}")
              :params {"id" 3}}
         resp (json-echo req)]
-    (is (= {"id" 3 "foo" "bar"} (:params resp)))
-    (is (= {"foo" "bar"} (:body-params resp)))))
+    (is (= {:id 3, :foo "bar"} (:params resp)))
+    (is (= {:foo "bar"} (:body-params resp)))))
 
 (def yaml-echo
   (wrap-yaml-params identity))

@@ -1,8 +1,8 @@
 (ns ring.middleware.test.format-response
   (:use [clojure.test]
-        [ring.middleware.format-response])
-  (:require [cheshire.core :as json]
-            [clj-yaml.core :as yaml])
+        [ring.middleware.format-response]
+        [clj-gson.json :only (to-json from-json)])
+  (:require [clj-yaml.core :as yaml])
   (:import [java.io ByteArrayInputStream]))
 
 (defn stream [s]
@@ -27,7 +27,7 @@
   (let [body {:foo "bar"}
         req {:body body}
         resp (json-echo req)]
-    (is (= (json/generate-string body) (slurp (:body resp))))
+    (is (= (to-json body) (slurp (:body resp))))
     (is (.contains (get-in resp [:headers "Content-Type"]) "application/json"))
     (is (< 2 (Integer/parseInt (get-in resp [:headers "Content-Length"]))))))
 
